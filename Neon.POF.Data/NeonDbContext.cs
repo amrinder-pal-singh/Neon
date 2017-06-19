@@ -21,6 +21,15 @@ namespace Neon.POF.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>().HasKey(k => k.Id);
+            modelBuilder.Entity<Employee>().Property(p => p.Name).HasMaxLength(100).IsRequired();
+            modelBuilder.Entity<Employee>().Property(p => p.Email).HasMaxLength(250).IsRequired();
+
+            modelBuilder.Entity<Department>().HasKey(k => k.Id);
+            modelBuilder.Entity<Department>().Property(p => p.Name).HasMaxLength(100).IsRequired();
+
+            modelBuilder.Entity<DepartmentEmployee>()
+                .HasKey( k => new{k.DepartmentId,k.EmployeeId});
+            
 
             //Configure domain classes using modelBuilder here
             //  var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
